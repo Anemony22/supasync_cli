@@ -1,61 +1,24 @@
-import 'package:args/args.dart';
+import 'dart:io';
 
-const String version = '0.0.1';
+import 'package:args/command_runner.dart';
 
-ArgParser buildParser() {
-  return ArgParser()
-    ..addFlag(
-      'help',
-      abbr: 'h',
-      negatable: false,
-      help: 'Print this usage information.',
-    )
-    ..addFlag(
-      'verbose',
-      abbr: 'v',
-      negatable: false,
-      help: 'Show additional command output.',
-    )
-    ..addFlag(
-      'version',
-      negatable: false,
-      help: 'Print the tool version.',
-    );
-}
+import 'package:supasync_cli/supasync_cli.dart';
 
-void printUsage(ArgParser argParser) {
+void printUsage(CommandRunner argParser) {
   print('Usage: dart supasync_cli.dart <flags> [arguments]');
   print(argParser.usage);
 }
 
-void main(List<String> arguments) {
-  final ArgParser argParser = buildParser();
-  try {
-    final ArgResults results = argParser.parse(arguments);
-    bool verbose = false;
+void main(List<String> args) {
+  var runner = CommandRunner('supasync', 'A CLI tool to streamline local development with Supabase and PowerSync.')..addCommand(TestCommand());
 
-    // Process the parsed arguments.
-    if (results.wasParsed('help')) {
-      printUsage(argParser);
-      return;
-    }
-    if (results.wasParsed('version')) {
-      print('supasync_cli version: $version');
-      return;
-    }
-    if (results.wasParsed('verbose')) {
-      verbose = true;
-    }
+  runner.argParser.addFlag('verbose', abbr: 'v', help: 'Displays extra logging information for a command.');
 
-    // Act on the arguments provided.
-    print('Positional arguments: ${results.rest}');
-    if (verbose) {
-      print('[VERBOSE] All arguments: ${results.arguments}');
-    }
-  } on FormatException catch (e) {
-    // Print usage information if an invalid argument was provided.
-    print(e.message);
+  runner.run(args).catchError((error) {
+    if (error is! UsageException) throw error;
+    print(error);
     print('');
-    printUsage(argParser);
-  }
+    printUsage(runner);
+    exit(64); // Exit code 64 indicates a usage error.
+  });
 }
