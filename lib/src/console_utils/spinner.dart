@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:dart_console/dart_console.dart';
-import 'package:supasync_cli/src/console_utils/utils.dart';
+import 'package:supasync_cli/src/console_utils/console_utils.dart';
 
 class Spinner {
   final List<String> _frames = [

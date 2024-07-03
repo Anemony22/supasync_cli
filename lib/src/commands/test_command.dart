@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:args/command_runner.dart';
+import 'package:supasync_cli/src/console_utils/spinner.dart';
 
 import '../console_utils/console_utils.dart';
 
