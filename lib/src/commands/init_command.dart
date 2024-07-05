@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/command_runner.dart';
@@ -23,12 +24,12 @@ class InitCommand extends Command {
   void run() async {
     // Attempt to run Supabase CLI init
     try {
-      'supabase init --with-vscode-settings'.start();
+      'supabase init --with-vscode-settings'.start(terminal: true);
     } catch (e) {
       ConsoleUtils.writeError("Supabase CLI not accessible. Ensure you've followed the Supabase CLI setup instructions.");
     }
 
-    // Create directories
+    // Generate files and directories
     String currentDir = Directory.current.path;
     String envPath = join(currentDir, '.env');
 
@@ -43,6 +44,19 @@ class InitCommand extends Command {
     await File(configPath).writeAsBytes(templateConfig);
     await File(composePath).writeAsBytes(templateCompose);
     await File(syncRulesPath).writeAsBytes(templateSyncRules);
+
+    // TODO: Default Supabase port doesn't work. Go through TOML and update
+
+    // TODO: Might be nice to update the name of the supabase project too
+
+    // Append VS Code settings to settings.json
+    String vsCodeSettings = join(currentDir, '.vscode', 'settings.json');
+
+    final Map<String, dynamic> settingsMap = jsonDecode(await File(vsCodeSettings).readAsString());
+    settingsMap['yaml.customTags'] = ['!env scalar'];
+
+    final encoder = JsonEncoder.withIndent('  ');
+    await File(vsCodeSettings).writeAsString(encoder.convert(settingsMap));
 
     ConsoleUtils.write('Finished ');
     ConsoleUtils.writeColored('supasync init', ConsoleColor.cyan);

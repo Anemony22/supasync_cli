@@ -83,7 +83,7 @@ class Spinner {
       ConsoleUtils.write(' $loadingMessage');
     } else {
       ConsoleUtils.writeColored('✓', ConsoleColor.green);
-      ConsoleUtils.write(' $completeMessage\n');
+      ConsoleUtils.writeLine(' $completeMessage');
     }
   }
 }

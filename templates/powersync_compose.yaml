@@ -1,6 +1,9 @@
+name: powersync
+
 services:
   # MongoDB Service used internally
   mongo:
+    container_name: mongo
     image: mongo:7.0
     command: --replSet rs0 --bind_ip_all --quiet
     restart: unless-stopped
@@ -11,6 +14,7 @@ services:
 
   # Initializes the MongoDB replica set. This service will not usually be actively running
   mongo-rs-init:
+    container_name: mongo-rs-init
     image: mongo:7.0
     depends_on:
       - mongo
@@ -22,6 +26,7 @@ services:
 
   # Start PowerSync with Mongo healthchecks
   powersync:
+    container_name: powersync-service
     restart: unless-stopped
     image: journeyapps/powersync-service:latest
     depends_on:

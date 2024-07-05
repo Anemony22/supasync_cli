@@ -18,12 +18,14 @@ class StartCommand extends Command {
   void run() async {
     'supabase start'.start(terminal: true);
 
-    'docker compose -f powersync/powersync_compose.yaml up -d'.start();
+    ConsoleUtils.writeLine('');
+
+    'docker compose -f powersync/powersync_compose.yaml up -d'.start(progress: Progress.capture(), terminal: true);
+
+    ConsoleUtils.writeLine('');
 
     // Clean up exited containers
-    'docker container prune -f'.start();
-
-    var mongoSetup = Docker().containers().firstWhereOrNull((container) => container.name == 'mongo-rs-init');
+    var mongoSetup = Docker().containers().firstWhereOrNull((container) => container.name.contains('mongo-rs-init'));
 
     if (mongoSetup != null) {
       int maxWaitTime = 5;
@@ -31,10 +33,11 @@ class StartCommand extends Command {
 
       while (mongoSetup.isRunning && waitTime < maxWaitTime) {
         await Future.delayed(Duration(seconds: 1));
+        waitTime++;
       }
 
       if (!mongoSetup.isRunning) {
-        mongoSetup.stop();
+        mongoSetup.delete();
       }
     }
 

@@ -14,9 +14,13 @@ class StopCommand extends Command {
 
   @override
   void run() async {
-    'docker compose -f powersync/powersync_compose.yaml down'.start();
+    'docker compose -f powersync/powersync_compose.yaml down'.start(progress: Progress.capture(), terminal: true);
+
+    ConsoleUtils.writeLine('');
 
     'supabase stop'.start(terminal: true);
+
+    ConsoleUtils.writeLine('');
 
     ConsoleUtils.writeLineColored('Supabase & PowerSync stopped successfully.', ConsoleColor.green);
   }
