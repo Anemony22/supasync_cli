@@ -39,13 +39,13 @@ class InitCommand extends Command {
 
     String powersyncDir = join(currentDir, 'powersync');
     String configPath = join(powersyncDir, 'config.yaml');
+    String composePath = join(powersyncDir, 'powersync-compose.yaml');
     String syncRulesPath = join(powersyncDir, 'sync_rules.yaml');
 
     await File(envPath).create();
 
     await Directory(powersyncDir).create();
-    await File(configPath).create();
-    await File(syncRulesPath).create();
+    await File('templates/config.yaml').copy(configPath);
 
     ConsoleUtils.write('Finished ');
     ConsoleUtils.writeColored('supasync init', ConsoleColor.cyan);

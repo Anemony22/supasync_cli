@@ -17,6 +17,12 @@ class ConsoleUtils {
     con.resetColorAttributes();
   }
 
+  static void writeLineColored(String text, ConsoleColor color) {
+    con.setForegroundColor(color);
+    con.writeLine(text);
+    con.resetColorAttributes();
+  }
+
   static void writeError(String text) {
     con.writeErrorLine(text);
   }
