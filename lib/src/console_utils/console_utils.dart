@@ -1,17 +1,23 @@
 import 'package:dart_console/dart_console.dart';
 
 class ConsoleUtils {
+  static final Console con = Console();
+
   static void write(String text) {
-    Console().write(text);
+    con.write(text);
   }
 
   static void writeLine(String text) {
-    Console().writeLine(text);
+    con.writeLine(text);
   }
 
   static void writeColored(String text, ConsoleColor color) {
-    Console().setForegroundColor(color);
-    Console().write(text);
-    Console().resetColorAttributes();
+    con.setForegroundColor(color);
+    con.write(text);
+    con.resetColorAttributes();
+  }
+
+  static void writeError(String text) {
+    con.writeErrorLine(text);
   }
 }

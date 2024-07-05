@@ -6,10 +6,18 @@ version: 0.0.1
 environment:
   sdk: ^3.2.6
 
+# Documentation
+# DCLI - https://dcli.onepub.dev/
+
 # Add regular dependencies here.
 dependencies:
   args: ^2.5.0
   dart_console: ^4.1.0
+  dcli: ^4.0.3
+  docker2: ^4.5.0
+  dotenv: ^4.2.0
+  path: ^1.9.0
+  process_run: ^1.0.0+1
 
 dev_dependencies:
   lints: ^4.0.0
