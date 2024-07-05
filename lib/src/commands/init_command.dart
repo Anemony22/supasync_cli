@@ -3,19 +3,14 @@ import 'dart:io';
 import 'package:args/command_runner.dart';
 import 'package:dart_console/dart_console.dart';
 import 'package:dcli/dcli.dart';
-import 'package:dotenv/dotenv.dart';
 import 'package:path/path.dart';
-import 'package:process_run/shell_run.dart';
+import 'package:supasync_cli/src/templates.dart';
 
 import '../console_utils/console_utils.dart';
 
 /// Init leaf command.
 /// Sets up supabase and powersync directories
 class InitCommand extends Command {
-  DotEnv env;
-
-  InitCommand(this.env);
-
   @override
   String get name => 'init';
 
@@ -39,13 +34,15 @@ class InitCommand extends Command {
 
     String powersyncDir = join(currentDir, 'powersync');
     String configPath = join(powersyncDir, 'config.yaml');
-    String composePath = join(powersyncDir, 'powersync-compose.yaml');
+    String composePath = join(powersyncDir, 'powersync_compose.yaml');
     String syncRulesPath = join(powersyncDir, 'sync_rules.yaml');
 
-    await File(envPath).create();
+    await File(envPath).writeAsBytes(templateEnv);
 
     await Directory(powersyncDir).create();
-    await File('templates/config.yaml').copy(configPath);
+    await File(configPath).writeAsBytes(templateConfig);
+    await File(composePath).writeAsBytes(templateCompose);
+    await File(syncRulesPath).writeAsBytes(templateSyncRules);
 
     ConsoleUtils.write('Finished ');
     ConsoleUtils.writeColored('supasync init', ConsoleColor.cyan);

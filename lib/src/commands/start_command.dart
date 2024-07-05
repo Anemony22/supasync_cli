@@ -16,9 +16,9 @@ class StartCommand extends Command {
 
   @override
   void run() async {
-    final supabaseCmd = 'supabase start'.start(terminal: true);
+    'supabase start'.start(terminal: true);
 
-    final powersyncCmd = 'docker compose -f powersync/powersync-compose.yaml up -d'.start();
+    'docker compose -f powersync/powersync_compose.yaml up -d'.start();
 
     // Clean up exited containers
     'docker container prune -f'.start();

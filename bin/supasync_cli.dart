@@ -1,18 +1,15 @@
 import 'dart:io';
 
 import 'package:args/command_runner.dart';
-import 'package:dotenv/dotenv.dart';
 import 'package:supasync_cli/src/commands/start_command.dart';
 import 'package:supasync_cli/src/commands/stop_command.dart';
 
 import 'package:supasync_cli/supasync_cli.dart';
 
 void main(List<String> args) {
-  DotEnv env = DotEnv()..load(['.env']);
-
   var runner = CommandRunner('supasync', 'A CLI tool to streamline local development with Supabase and PowerSync.')
     ..addCommand(TestCommand())
-    ..addCommand(InitCommand(env))
+    ..addCommand(InitCommand())
     ..addCommand(StartCommand())
     ..addCommand(StopCommand());
 
