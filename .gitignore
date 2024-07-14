@@ -30,5 +30,7 @@ doc/api/
 */supabase/*
 bin/.vscode/*
 */powersync/*
+installer/*
+supasync.exe
 
 *.g.dart
