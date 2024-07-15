@@ -47,11 +47,11 @@ Name: "{group}\{#AppName}"; Filename: "{app}\{#AppExeName}"
 procedure CurStepChanged(CurStep: TSetupStep);
 begin
     if (CurStep = ssPostInstall) and IsTaskSelected('envPath')
-    then EnvAddPath(ExpandConstant('{app}') +'\bin');
+    then EnvAddPath(ExpandConstant('{app}'));
 end;
 
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
 begin
     if CurUninstallStep = usPostUninstall
-    then EnvRemovePath(ExpandConstant('{app}') +'\bin');
+    then EnvRemovePath(ExpandConstant('{app}'));
 end;
