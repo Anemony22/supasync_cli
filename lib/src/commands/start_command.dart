@@ -20,12 +20,14 @@ class StartCommand extends Command {
 
     ConsoleUtils.writeLine('');
 
-    'docker compose -f powersync/powersync_compose.yaml up -d'.start(progress: Progress.capture(), terminal: true);
+    'docker compose -f powersync/powersync_compose.yaml --env-file .env up -d '
+        .start(progress: Progress.capture(), terminal: true);
 
     ConsoleUtils.writeLine('');
 
     // Clean up exited containers
-    var mongoSetup = Docker().containers().firstWhereOrNull((container) => container.name.contains('mongo-rs-init'));
+    var mongoSetup = Docker().containers().firstWhereOrNull(
+        (container) => container.name.contains('mongo-rs-init'));
 
     if (mongoSetup != null) {
       int maxWaitTime = 5;
@@ -41,6 +43,7 @@ class StartCommand extends Command {
       }
     }
 
-    ConsoleUtils.writeLineColored('Supabase & PowerSync started successfully.', ConsoleColor.green);
+    ConsoleUtils.writeLineColored(
+        'Supabase & PowerSync started successfully.', ConsoleColor.green);
   }
 }
