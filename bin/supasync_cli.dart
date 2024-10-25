@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:args/command_runner.dart';
+import 'package:supasync_cli/src/commands/restart_commond.dart';
 import 'package:supasync_cli/src/commands/start_command.dart';
 import 'package:supasync_cli/src/commands/stop_command.dart';
 
@@ -11,7 +12,8 @@ void main(List<String> args) {
     ..addCommand(TestCommand())
     ..addCommand(InitCommand())
     ..addCommand(StartCommand())
-    ..addCommand(StopCommand());
+    ..addCommand(StopCommand())
+    ..addCommand(RestartCommand());
 
   runner.argParser.addFlag('verbose', abbr: 'v', negatable: false, help: 'Displays extra logging information for a command.');
 
