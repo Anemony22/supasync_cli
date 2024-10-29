@@ -4,7 +4,7 @@
 #include "environment.iss"
 
 #define AppName "SupaSync CLI" 
-#define AppVersion "0.1.0"
+#define AppVersion "0.1.1"
 #define AppPublisher "Anemony22"
 #define AppURL "https://github.com/Anemony22/supasync_cli"
 #define AppExeName "supasync.exe"

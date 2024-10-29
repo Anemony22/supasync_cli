@@ -6,6 +6,8 @@ import 'package:supasync_cli/src/commands/stop_command.dart';
 
 import 'package:supasync_cli/supasync_cli.dart';
 
+// Compile with 'dart compile exe bin/supasync_cli.dart -o bin/supasync'
+
 void main(List<String> args) {
   var runner = CommandRunner('supasync', 'A CLI tool to streamline local development with Supabase and PowerSync.')
     ..addCommand(TestCommand())
