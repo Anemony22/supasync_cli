@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:args/command_runner.dart';
-import 'package:supasync_cli/src/commands/restart_commond.dart';
+import 'package:supasync_cli/src/commands/restart_command.dart';
 import 'package:supasync_cli/src/commands/start_command.dart';
 import 'package:supasync_cli/src/commands/stop_command.dart';
 
